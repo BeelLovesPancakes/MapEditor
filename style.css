@@ -1,0 +1,53 @@
+* {
+    font-family: Arial, Helvetica, sans-serif;
+    margin: 0;
+}
+
+.map {
+    display: grid;
+    grid-template-columns: repeat(20, 1fr);
+    margin-left: 20px;
+    margin-right: 20px;
+    
+}
+
+
+
+.tile {
+    aspect-ratio: 1/ 1;
+    display: flex;
+    align-items: center;
+    margin: 0;
+    padding: 0;
+    color: red;
+}
+
+.road {
+  width: 100%;
+  height: 100%;
+  background-image: url(Img/RoadTile_.png);
+  background-repeat: no-repeat;
+  background-size: contain;
+  background-position: center;
+}
+
+.grass {
+  width: 100%;
+  height: 100%;
+  background-image: url(Img/grass.png);
+  background-repeat: no-repeat;
+  background-size: contain;
+  background-position: center;
+}
+
+
+.water {
+  width: 100%;
+  height: 100%;
+  background-image: url(Img/water.png);
+  background-repeat: no-repeat;
+  background-size: contain;
+  background-position: center;
+}
+
+
