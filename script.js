@@ -1,6 +1,8 @@
 'use strict'
 
-const MapSection = document.querySelector('section');
+
+
+const MapSection = document.querySelector('.map');
 
 function GenerateMap() {
     let x = 0;
@@ -41,13 +43,8 @@ function SwitchTile(Tile) {
     });
 
 
-}
+};
 
-const GeneratorBtn = document.querySelector('.generator');
-
-GeneratorBtn.addEventListener('click', () => {
-    GenerateMap();
-});
 
 function RoadBuilder() {
 
@@ -75,4 +72,143 @@ function RoadBuilder() {
         }
         
     }
+};
+
+
+const Menu = document.querySelector('.menu');
+const Editor = document.querySelector('.editor');
+const NewMapBtn = document.querySelector('.new-map');
+const LoadMapBtn = document.querySelector('.load-map');
+const SaveMapBtn = document.querySelector('.save-map');
+const BackMenuBtn = document.querySelector('.back-menu');
+const MapNameInput = document.querySelector('.map-name');
+const SaveList = document.querySelector('.save-list');
+
+
+function GetSavedMaps() {
+    return JSON.parse(localStorage.getItem('SavedMaps')) || {};
+};
+
+function SaveMap() {
+
+    const name = MapNameInput.value.trim();
+
+    if (!name) {
+        alert('Enter a map name!');
+        return;
+    }
+
+    const maps = GetSavedMaps();
+    const MapData = [];
+
+    for (let i = 0; i < MapSection.children.length; i++) {
+        const tile = MapSection.children[i];
+
+        if (tile.classList.contains('grass')) MapData.push('grass');
+        else if (tile.classList.contains('road')) MapData.push('road');
+        else if (tile.classList.contains('water')) MapData.push('water');
+    }
+
+    maps[name] = MapData;
+
+    localStorage.setItem('SavedMaps', JSON.stringify(maps));
+
+    alert('Map saved as "' + name + '"');
+
+    RenderSaveList();
 }
+
+function RenderSaveList() {
+
+    const maps = GetSavedMaps();
+    SaveList.textContent = '';
+
+    for (const name in maps) {
+
+        const container = document.createElement('div');
+
+        const loadBtn = document.createElement('button');
+        loadBtn.textContent = 'Load: ' + name;
+
+        const deleteBtn = document.createElement('button');
+        deleteBtn.textContent = 'Delete';
+
+        loadBtn.addEventListener('click', () => LoadMap(name));
+        deleteBtn.addEventListener('click', () => DeleteMap(name));
+
+        container.appendChild(loadBtn);
+        container.appendChild(deleteBtn);
+
+        SaveList.appendChild(container);
+    }
+}
+
+
+SaveMapBtn.addEventListener('click', SaveMap);
+
+
+SaveMapBtn.addEventListener('click', SaveMap);
+
+NewMapBtn.addEventListener('click', () => {
+    GenerateMap();
+    ShowEditor();
+});
+
+
+function ShowEditor() {
+    Menu.classList.add('hidden');
+    Editor.classList.remove('hidden');
+    console.log("EDITOR")
+};
+
+function ShowMenu() {
+    Editor.classList.add('hidden');
+    Menu.classList.remove('hidden');
+    console.log("MENU")
+};
+
+
+
+function LoadMap(name) {
+
+    const maps = GetSavedMaps();
+    const MapData = maps[name];
+
+    if (!MapData) return;
+
+    MapSection.textContent = '';
+
+    for (let i = 0; i < MapData.length; i++) {
+
+        const NewTile = document.createElement('div');
+        NewTile.classList.add('tile', MapData[i]);
+
+        SwitchTile(NewTile);
+        MapSection.appendChild(NewTile);
+    }
+
+    MapNameInput.value = name;
+
+    RoadBuilder();
+    ShowEditor();
+}
+
+
+function DeleteMap(name) {
+
+    const maps = GetSavedMaps();
+
+    delete maps[name];
+
+    localStorage.setItem('SavedMaps', JSON.stringify(maps));
+
+    RenderSaveList();
+}
+
+RenderSaveList();
+
+LoadMapBtn.addEventListener('click', LoadMap);
+
+BackMenuBtn.addEventListener('click', ShowMenu);
+
+

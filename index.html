@@ -7,9 +7,28 @@
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <button class="generator">GENERATE MAP</button>
-    <section class="map"></section>
+    <section class="menu">
+        <h1>MAP EDITOR</h1>
+        <button class="new-map">New Map</button>
+        <button class="load-map hide">Load Map</button>
+        <div class="save-list"></div>
+    </section>
+
+    <section class="editor hidden">
+        <div class="topbar">
+            <input type="text" class="map-name" placeholder="Map name">
+            <button class="save-map">Save Map</button>
+            <button class="back-menu">Back To Menu</button>
+        </div>
+
+        <div class="viewport">
+            <section class="map"></section>
+        </div>
+    </section>
 
     <script src="script.js"></script>
 </body>
 </html>
+
+
+

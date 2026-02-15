@@ -8,10 +8,16 @@
     grid-template-columns: repeat(20, 1fr);
     margin-left: 20px;
     margin-right: 20px;
-    
+    overflow: auto;
+    max-height: 80vh;
 }
 
-
+.viewport {
+    width: 800px;
+    height: 600px;
+    overflow: auto;
+    border: 3px solid black;
+}
 
 .tile {
     aspect-ratio: 1/ 1;
@@ -19,7 +25,7 @@
     align-items: center;
     margin: 0;
     padding: 0;
-    color: red;
+    color: transparent;
 }
 
 .road {
@@ -51,3 +57,31 @@
 }
 
 
+
+.menu {
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 20px;
+
+    background: #222;
+    color: white;
+}
+
+.topbar {
+    margin: 10px 20px;
+}
+
+.hidden {
+    display: none;
+}
+
+.editor {
+    padding-top: 20px;
+}
+
+.hide {
+  display: none;
+}
