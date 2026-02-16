@@ -1,13 +1,21 @@
 'use strict'
 
 
-
+const Menu = document.querySelector('.menu');
+const Editor = document.querySelector('.editor');
+const NewMapBtn = document.querySelector('.new-map');
+const LoadMapBtn = document.querySelector('.load-map');
+const SaveMapBtn = document.querySelector('.save-map');
+const BackMenuBtn = document.querySelector('.back-menu');
+const MapNameInput = document.querySelector('.map-name');
+const SaveList = document.querySelector('.save-list');
 const MapSection = document.querySelector('.map');
+const TextInput = document.querySelector('.text');
 
 function GenerateMap() {
     let x = 0;
     let z = 20;
-
+    MapNameInput.value = '';
     MapSection.textContent = '';
 
     while (x < (z*z)) {
@@ -74,14 +82,7 @@ function RoadBuilder() {
 };
 
 
-const Menu = document.querySelector('.menu');
-const Editor = document.querySelector('.editor');
-const NewMapBtn = document.querySelector('.new-map');
-const LoadMapBtn = document.querySelector('.load-map');
-const SaveMapBtn = document.querySelector('.save-map');
-const BackMenuBtn = document.querySelector('.back-menu');
-const MapNameInput = document.querySelector('.map-name');
-const SaveList = document.querySelector('.save-list');
+
 
 
 function GetSavedMaps() {
