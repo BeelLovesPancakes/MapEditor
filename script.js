@@ -12,6 +12,7 @@ const SaveList = document.querySelector('.save-list');
 const MapSection = document.querySelector('.map');
 const TextInput = document.querySelector('.text');
 const ExportMapBtn = document.querySelector('.export-map');
+const ImportMapBtn = document.querySelector('.import-map');
 
 function GenerateMap() {
     let x = 0;
@@ -183,6 +184,69 @@ function RenderSaveList() {
     }
 }
 
+function ImportMap() {
+
+    const input = document.createElement('input');
+    input.type = 'file';
+    input.accept = 'application/json';
+
+    input.addEventListener('change', function () {
+
+        const file = this.files[0];
+        if (!file) return;
+
+        const reader = new FileReader();
+
+        reader.onload = function (e) {
+
+            try {
+                const importedData = JSON.parse(e.target.result);
+
+                const mapNames = Object.keys(importedData);
+
+                if (mapNames.length === 0) {
+                    alert("Invalid or empty map file.");
+                    return;
+                }
+
+                const name = mapNames[0];
+                const MapData = importedData[name];
+
+                MapSection.textContent = '';
+
+                for (let i = 0; i < MapData.length; i++) {
+                    const NewTile = document.createElement('div');
+                    NewTile.classList.add('tile', MapData[i]);
+
+                    SwitchTile(NewTile);
+                    MapSection.appendChild(NewTile);
+                }
+
+                MapNameInput.value = name;
+
+                RoadBuilder();
+                ShowEditor();
+
+                const maps = GetSavedMaps();
+                maps[name] = MapData;
+                localStorage.setItem('SavedMaps', JSON.stringify(maps));
+                RenderSaveList();
+
+                alert('Map imported successfully!');
+
+            } catch (error) {
+                alert("Invalid JSON file.");
+                console.error(error);
+            }
+        };
+
+        reader.readAsText(file);
+    });
+
+    input.click();
+}
+
+ImportMapBtn.addEventListener('click', ImportMap)
 
 SaveMapBtn.addEventListener('click', SaveMap);
 
