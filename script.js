@@ -11,14 +11,13 @@ function GenerateMap() {
     MapSection.textContent = '';
 
     while (x < (z*z)) {
-    x++;
+        x++;
 
-    const NewTile = document.createElement('div');
-    NewTile.classList.add('tile', 'grass');
+        const NewTile = document.createElement('div');
+        NewTile.classList.add('tile', 'grass');
 
-    SwitchTile(NewTile);
-    NewTile.textContent = x - 1;
-    MapSection.appendChild(NewTile);
+        SwitchTile(NewTile);
+        MapSection.appendChild(NewTile);
         
     };
 };
@@ -52,7 +51,7 @@ function RoadBuilder() {
         
         if (MapSection.children[index].classList.contains('road')) {
             let RoadCounter = 0
-            if((index - 20) > 0 && MapSection.children[index - 20].classList.contains('road')) {
+            if((index - 20) > -1 && MapSection.children[index - 20].classList.contains('road')) {
                 RoadCounter += 1;
             }
             if((index - 1) > -1 && MapSection.children[index - 1].classList.contains('road') && (index - 1)%20 != 19 ) { 
@@ -61,7 +60,7 @@ function RoadBuilder() {
             if((index + 1) < 400 && MapSection.children[index + 1].classList.contains('road') && (index + 1)%20 != 0) {
                 RoadCounter += 2;
             }
-            if((index + 20) < 399 && MapSection.children[index + 20].classList.contains('road')) {
+            if((index + 20) < 400 && MapSection.children[index + 20].classList.contains('road')) {
                 RoadCounter += 4;
             }
 
