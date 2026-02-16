@@ -11,6 +11,7 @@ const MapNameInput = document.querySelector('.map-name');
 const SaveList = document.querySelector('.save-list');
 const MapSection = document.querySelector('.map');
 const TextInput = document.querySelector('.text');
+const ExportMapBtn = document.querySelector('.export-map');
 
 function GenerateMap() {
     let x = 0;
@@ -117,6 +118,42 @@ function SaveMap() {
 
     RenderSaveList();
 }
+
+// ExportMapBtn.addEventListener('click', ExportMap());
+
+// function ExportMap() {
+//     console.log('EXPORTED')
+//     const name = MapNameInput.value.trim();
+
+//     if (!name) {
+//         alert('Enter a map name!');
+//         return;
+//     }
+
+//     const maps = GetSavedMaps();
+//     const MapData = [];
+
+//     for (let i = 0; i < MapSection.children.length; i++) {
+//         const tile = MapSection.children[i];
+
+//         if (tile.classList.contains('grass')) MapData.push('grass');
+//         else if (tile.classList.contains('road')) MapData.push('road');
+//         else if (tile.classList.contains('water')) MapData.push('water');
+//     }
+
+//     maps[name] = MapData;
+
+//     localStorage.setItem('SavedMaps', JSON.stringify(maps));
+
+//     var txtFile = "map.json";
+//     var file = new File(txtFile, "write");
+//     var str = JSON.stringify(maps);
+
+
+//     file.open("write");
+//     file.write(str);
+//     file.close();
+// }
 
 function RenderSaveList() {
 
