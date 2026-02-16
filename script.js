@@ -119,41 +119,44 @@ function SaveMap() {
     RenderSaveList();
 }
 
-// ExportMapBtn.addEventListener('click', ExportMap());
+ExportMapBtn.addEventListener('click', downloadJSON);
 
-// function ExportMap() {
-//     console.log('EXPORTED')
-//     const name = MapNameInput.value.trim();
+function downloadJSON() {
 
-//     if (!name) {
-//         alert('Enter a map name!');
-//         return;
-//     }
+    let filename = MapNameInput.value.trim() + ".json";
 
-//     const maps = GetSavedMaps();
-//     const MapData = [];
+    if (!filename) {
+        alert('Enter a map name!');
+        return;
+    }
 
-//     for (let i = 0; i < MapSection.children.length; i++) {
-//         const tile = MapSection.children[i];
+    const maps = GetSavedMaps();
+    const MapData = [];
 
-//         if (tile.classList.contains('grass')) MapData.push('grass');
-//         else if (tile.classList.contains('road')) MapData.push('road');
-//         else if (tile.classList.contains('water')) MapData.push('water');
-//     }
+    for (let i = 0; i < MapSection.children.length; i++) {
+        const tile = MapSection.children[i];
 
-//     maps[name] = MapData;
+        if (tile.classList.contains('grass')) MapData.push('grass');
+        else if (tile.classList.contains('road')) MapData.push('road');
+        else if (tile.classList.contains('water')) MapData.push('water');
+    }
 
-//     localStorage.setItem('SavedMaps', JSON.stringify(maps));
-
-//     var txtFile = "map.json";
-//     var file = new File(txtFile, "write");
-//     var str = JSON.stringify(maps);
+    maps[filename] = MapData;
 
 
-//     file.open("write");
-//     file.write(str);
-//     file.close();
-// }
+    const jsonString = JSON.stringify(maps);
+    const blob = new Blob([jsonString], { type: "application/json" });
+    const url = URL.createObjectURL(blob);
+
+    const a = document.createElement("a");
+    a.href = url;
+    a.download = filename;
+    document.body.appendChild(a);
+    a.click();
+
+    document.body.removeChild(a);
+    URL.revokeObjectURL(url);
+}
 
 function RenderSaveList() {
 
